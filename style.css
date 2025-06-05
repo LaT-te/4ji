@@ -1,43 +1,126 @@
+/* デフォルトはダークモード */
 body {
-  font-family: sans-serif;
-  text-align: center;
-  background: #f9f9f9;
-  padding: 20px;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-#game {
-  max-width: 400px;
-  margin: auto;
+/* ライトモード */
+body.light-mode {
+  background-color: #ffffff;
+  color: #000000;
 }
 
-#output div {
-  margin: 5px 0;
-  font-size: 24px;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* モード切り替えボタン */
+#toggleMode {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+body.light-mode #toggleMode {
+  background-color: #ddd;
+  color: #000;
+}
+
+/* 入力欄 */
+#guessInput {
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background-color: #222;
+  color: #eee;
+  margin-top: 1rem;
+  width: 200px;
+}
+
+#guessInput:focus {
+  outline: none;
+  border-color: #4caf50;
+  background-color: #333;
+}
+
+/* 送信ボタン */
+#submitBtn {
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #4caf50, #81c784);
+  color: white;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: background 0.3s;
+}
+
+#submitBtn:hover {
+  background: linear-gradient(135deg, #388e3c, #66bb6a);
+}
+
+#result {
+  margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
 .green {
-  background-color: #6aaa64;
+  background-color: #4CAF50;
   color: white;
-  padding: 5px;
-  border-radius: 4px;
-  display: inline-block;
+  padding: 5px 8px;
   margin: 2px;
+  border-radius: 5px;
+  display: inline-block;
+  animation: pop 0.3s ease;
 }
 
 .yellow {
-  background-color: #c9b458;
-  color: white;
-  padding: 5px;
-  border-radius: 4px;
-  display: inline-block;
+  background-color: #FFEB3B;
+  color: black;
+  padding: 5px 8px;
   margin: 2px;
+  border-radius: 5px;
+  display: inline-block;
+  animation: pop 0.3s ease;
 }
 
 .gray {
-  background-color: #787c7e;
+  background-color: #9E9E9E;
   color: white;
-  padding: 5px;
-  border-radius: 4px;
-  display: inline-block;
+  padding: 5px 8px;
   margin: 2px;
+  border-radius: 5px;
+  display: inline-block;
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
 }

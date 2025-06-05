@@ -2,17 +2,22 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>四字熟語Wordle</title>
+  <title>四字熟語 Wordle</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>四字熟語 Wordle</h1>
-  <div id="game">
+  <header>
+    <h1>四字熟語 Wordle</h1>
+    <button id="toggleMode">🌙/☀️</button>
+  </header>
+
+  <main id="game">
     <div id="output"></div>
     <input type="text" id="guessInput" maxlength="4" placeholder="四字熟語を入力">
     <button id="submitBtn">送信</button>
     <p id="result"></p>
-  </div>
+  </main>
+
   <script src="script.js"></script>
 </body>
 </html>
