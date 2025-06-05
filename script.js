@@ -34,6 +34,7 @@ const words = [
 const answer = words[Math.floor(Math.random() * words.length)];
 const maxAttempts = 6;
 let attempts = 0;
+let history = []; // 入力履歴を保存
 
 const outputDiv = document.getElementById("output");
 const guessInput = document.getElementById("guessInput");
@@ -41,16 +42,28 @@ const submitBtn = document.getElementById("submitBtn");
 const resultP = document.getElementById("result");
 const toggleBtn = document.getElementById("toggleMode");
 
-// 送信処理
 function handleGuess() {
   const guess = guessInput.value.trim();
 
-  // バリデーション：漢字4文字のみ
+  // バリデーション：漢字4文字
   if (!/^[一-龥]{4}$/.test(guess)) {
     alert("漢字4文字の四字熟語を入力してください。");
     return;
   }
 
+  // 重複チェック
+  if (history.includes(guess)) {
+    alert("同じ四字熟語は2回使えません。");
+    return;
+  }
+
+  // リストに存在するかチェック（任意）
+  if (!words.includes(guess)) {
+    alert("リストに存在する四字熟語を入力してください。");
+    return;
+  }
+
+  history.push(guess);
   attempts++;
   const result = checkGuess(guess, answer);
   outputDiv.innerHTML += `<div>${result}</div>`;
@@ -86,26 +99,23 @@ toggleBtn.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
 });
 
-// Wordle風判定（緑・黄・灰）
+// Wordle本家準拠の判定
 function checkGuess(guess, answer) {
-  let result = "";
-  const answerArr = answer.split("");
   const guessArr = guess.split("");
+  const answerArr = answer.split("");
+  const resultArr = Array(4).fill(""); // 出力用
   const answerUsed = [false, false, false, false];
 
-  // 1. 緑（位置も文字も一致）を判定
+  // 1. 緑（正しい位置）を判定
   for (let i = 0; i < 4; i++) {
     if (guessArr[i] === answerArr[i]) {
-      result += `<span class="green">${guessArr[i]}</span>`;
+      resultArr[i] = `<span class="green">${guessArr[i]}</span>`;
       answerUsed[i] = true;
       guessArr[i] = null; // 使った文字はnullに
-    } else {
-      result += " "; // ダミー
     }
   }
 
-  // 2. 黄・灰を判定
-  let resultArr = result.split(" ");
+  // 2. 黄（位置違い）を判定
   for (let i = 0; i < 4; i++) {
     if (resultArr[i]) continue; // 緑はスキップ
     const idx = answerArr.findIndex((a, j) => a === guess[i] && !answerUsed[j]);
